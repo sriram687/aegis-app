@@ -1,0 +1,85 @@
+import os
+from dotenv import load_dotenv
+# Triggering hot-reload to apply environment variable discovery fixes.
+
+# 1. Load environment variables IMMEDIATELY (check local then root)
+if not load_dotenv():
+    # Attempt to load from project root
+    root_env = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".env")
+    if os.path.exists(root_env):
+        load_dotenv(root_env)
+
+"""
+── Elite Predictive Intelligence Core ─────────────────────────────────────
+
+The Aegis ML Insurance Service implements high-fidelity predictive models 
+for parametric risk resolution. It orchestrates high-dimensional feature 
+analysis to ensure deterministic, actuarially sound payouts across the 
+global H3 grid.
+
+Ref: ARCHITECTURE/ACTUARIAL_AND_PAYOUT_LOGIC.md
+     ARCHITECTURE/SECURITY_AND_FRAUD_MATRIX.md
+"""
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from routes import risk, pricing, fraud, trigger, feedback
+import utils.model_loader # This triggers singleton initialization during startup
+
+"""
+── Aegis ML Inference Engine Core ───────────────────────────────────────────
+
+This service operates as the centralized intelligence layer for Aegis. 
+It manages the high-fidelity lifecycle of Risk, Pricing, and Fraud models, 
+ensuring adversarial-resilient predictive ingress for parametric insurance.
+
+For comprehensive architectural details, refer to:
+- ARCHITECTURE/ML_MODEL_CARDS.md
+- ARCHITECTURE/SYSTEM_ARCHITECTURE.md (Section: ML Microservices)
+"""
+
+REQUIRED_ENV_VARS = (
+    "REDIS_URL",
+)
+
+
+def validate_required_env_vars() -> None:
+    missing = [key for key in REQUIRED_ENV_VARS if not os.getenv(key, "").strip()]
+    if missing:
+        raise RuntimeError(
+            "Missing required environment variables: "
+            + ", ".join(missing)
+            + ". Please set them before starting ml-insurance-service."
+        )
+
+
+validate_required_env_vars()
+
+app = FastAPI(
+    title="Aegis Elite Predictive Core",
+    description="High-fidelity adversarial intelligence engine for elite risk and parametric resolution.",
+    version="1.0.0"
+)
+
+# CORS middleware for NestJS backend / other services communication
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include Routers
+app.include_router(risk.router, tags=["Risk"])
+app.include_router(pricing.router, tags=["Pricing"])
+app.include_router(fraud.router, tags=["Fraud"])
+app.include_router(trigger.router, tags=["Trigger"])
+app.include_router(feedback.router, tags=["Feedback"])
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False)

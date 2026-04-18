@@ -1,0 +1,78 @@
+{
+  "trained_at": "2026-04-17T10:42:20.493887+00:00",
+  "model_version": "20260417T104156Z",
+  "n_samples": 10000,
+  "fraud_rate": 0.08,
+  "precision": 0.8907563025210085,
+  "recall": 0.6625,
+  "f1": 0.7598566308243727,
+  "features": [
+    "speed_kmh",
+    "claims_rejection_rate",
+    "device_mismatch",
+    "velocity_z",
+    "claims_filed",
+    "claims_rejected",
+    "h3_zone_consistency",
+    "delta_distance_m",
+    "delta_t_s",
+    "shared_driver_count_24h",
+    "teleport_ratio"
+  ],
+  "risk": {
+    "train_rows": 80800,
+    "test_rows": 20200,
+    "test_auc": 0.6870409584564703,
+    "cross_validation": {
+      "mean_auc": 0.6881374849803377,
+      "std_auc": 0.0033814633008643754
+    },
+    "feature_importance": {
+      "rainfall_mm": 0.4767884314060211,
+      "aqi_index": 0.13753747940063477,
+      "demand_factor": 0.15444360673427582,
+      "hour_of_day": 0.04935517534613609,
+      "day_of_week": 0.059322990477085114,
+      "zone_historical_risk": 0.0986313447356224,
+      "driver_tenure_days": 0.02392103150486946
+    }
+  },
+  "fraud": {
+    "train_rows": 8000,
+    "test_rows": 2000,
+    "base_rate": 0.08,
+    "test_auc": 0.9411107336956521,
+    "cross_validation": {
+      "mean_auc": 0.9403943614130433,
+      "std_auc": 0.009565179901652694
+    },
+    "pattern_injection_counts": {
+      "gps_teleport": 213,
+      "claim_burst": 200,
+      "device_sharing": 181,
+      "earnings_anomaly": 206
+    },
+    "feature_importance": {
+      "speed_kmh": 0.11182794617955218,
+      "claims_rejection_rate": 0.03234897133323149,
+      "device_mismatch": 0.27843542783815994,
+      "velocity_z": 0.09948010833576215,
+      "claims_filed": 0.01975832243069085,
+      "claims_rejected": 0.19142530736560373,
+      "h3_zone_consistency": 0.06855742070945912,
+      "delta_distance_m": 0.004186660136600555,
+      "delta_t_s": 0.009200217494853155,
+      "shared_driver_count_24h": 0.18287929574519146,
+      "teleport_ratio": 0.0019003224308953679
+    }
+  },
+  "pricing": {
+    "train_rows": 20000,
+    "feature_names": [
+      "weekly_earnings",
+      "lf",
+      "ct",
+      "margin"
+    ]
+  }
+}

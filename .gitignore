@@ -1,0 +1,97 @@
+# dependencies
+node_modules/
+
+# env files
+!.env.example
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug / logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+logs/
+*.log
+.logs/*.pid
+
+# local runtime artifacts
+.tmp/start.runtime.env
+
+# macOS
+.DS_Store
+*.pem
+
+# typescript
+*.tsbuildinfo
+
+# misc
+app-example
+.cache/
+
+# generated native folders
+/ios
+/android
+
+# default IDE files
+.idea/
+
+# Python Virtual Environments & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+/generated/prisma
+ml-services/.venv/
+
+# Aegis System Folders
+.logs/
+.tmp/
+
+# ML Model Artifacts
+
+# Build
+dist/
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat
